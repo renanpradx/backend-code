@@ -1,0 +1,8 @@
+applications:
+- name: manualdeloja
+  disk_quota: 1G
+  instances: 1
+  memory: 1G
+  path: target/prove-manualdeloja-0.0.1-SNAPSHOT.jar
+  env:
+   JBP_CONFIG_DEBUG: '{enabled: true}'

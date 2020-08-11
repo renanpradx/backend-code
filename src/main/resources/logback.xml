@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+	<include resource= "org/springframework/boot/logging/logback/base.xml"/>
+
+    <property name="LOG_HOME" value="/tmp" />
+    <property name="SERVICE_NAME" value="prove" />
+
+    <appender name="DailyRollingFileAppender_app" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${SERVICE_NAME}.app.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> <!-- daily rollover -->
+            <fileNamePattern>${LOG_HOME}/${SERVICE_NAME}-%d{yyyy-MM-dd}.%i.app.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize><!-- or whenever the file size reaches 50MB -->
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>1</maxHistory><!-- keep 1 day' worth of history -->
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <root level="INFO" additivity="false">
+        <appender-ref ref="DailyRollingFileAppender_app"/>
+    </root>
+
+
+    <appender name="DailyRollingFileAppender_db" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_HOME}/${SERVICE_NAME}.db.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy"> <!-- daily rollover -->
+            <fileNamePattern>${LOG_HOME}/${SERVICE_NAME}-%d{yyyy-MM-dd}.%i.db.log</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>50MB</maxFileSize><!-- or whenever the file size reaches 50MB -->
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>%msg</pattern>
+        </encoder>
+    </appender>
+    <logger level="INFO" name="UPDATE_DB" additivity="false">
+        <appender-ref ref="DailyRollingFileAppender_db"/>
+    </logger>
+
+</configuration>
