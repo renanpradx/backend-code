@@ -28,9 +28,6 @@ public class Atividade {
 	@Column(name = "ds_atividade")
 	private String descricao;
 
-	@Column(name = "st_atividade")
-	private String statusAtividade;
-
 	@Column(name = "posicao")
 	private Long posicao;
 	
@@ -45,5 +42,5 @@ public class Atividade {
 	@OneToMany(mappedBy = "atividade", cascade = CascadeType.ALL)
 	@Builder.Default
 	@OrderBy("posicao ASC")
-	private List<Tarefa> tarefasList = new ArrayList<>();
+	private List<Tarefa> tarefas = new ArrayList<>();
 }
