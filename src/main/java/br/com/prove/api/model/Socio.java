@@ -29,8 +29,7 @@ public class Socio {
     @Column(name = "email")
     private String email;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_situacao")
-    private Long Situacao;
+    @ManyToOne
+    @JoinColumn(name = "id_situacao", nullable = false)
+    private Situacao situacao;
 }
